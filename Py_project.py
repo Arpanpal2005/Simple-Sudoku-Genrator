@@ -1,6 +1,6 @@
 import random
 
-def unUsedInBox(grid, rowStart, colStart, num):
+def unBox(grid, rowStart, colStart, num):
     for i in range(3):
         for j in range(3):
             if grid[rowStart + i][colStart + j] == num:
@@ -12,23 +12,23 @@ def fillBox(grid, row, col):
         for j in range(3):
             while True:
                 num = random.randint(1, 9)
-                if unUsedInBox(grid, row, col, num):
+                if unBox(grid, row, col, num):
                     break
             grid[row + i][col + j] = num
 
-def unUsedInRow(grid, i, num):
+def unRow(grid, i, num):
     return num not in grid[i]
 
-def unUsedInCol(grid, j, num):
+def unCol(grid, j, num):
     for i in range(9):
         if grid[i][j] == num:
             return False
     return True
 
 def checkIfSafe(grid, i, j, num):
-    return (unUsedInRow(grid, i, num) and
-            unUsedInCol(grid, j, num) and
-            unUsedInBox(grid, i - i % 3, j - j % 3, num))
+    return (unRow(grid, i, num) and
+            unCol(grid, j, num) and
+            unBox(grid, i - i % 3, j - j % 3, num))
 
 def fillDiagonal(grid):
     for i in range(0, 9, 3):
@@ -150,4 +150,5 @@ class SudokuGUI:
 root = tk.Tk()
 app = SudokuGUI(root)
 root.mainloop()
+
 
